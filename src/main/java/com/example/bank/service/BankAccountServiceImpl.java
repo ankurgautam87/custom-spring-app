@@ -28,6 +28,7 @@ public class BankAccountServiceImpl implements BankAccountService {
         }
         BankAccount account = getAccount(accountNumber);
         account.setBalance(account.getBalance() + amount);
+        accounts.put(accountNumber, account);
     }
 
     public void withdraw(String accountNumber, double amount) {
@@ -39,5 +40,6 @@ public class BankAccountServiceImpl implements BankAccountService {
             throw new IllegalStateException("Insufficient funds");
         }
         account.setBalance(account.getBalance() - amount);
+        accounts.put(accountNumber, account);
     }
 }
