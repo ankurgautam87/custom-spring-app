@@ -1,26 +1,31 @@
 package com.example.bank.web;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
+
 import com.example.bank.domain.BankAccount;
 import com.example.bank.service.BankAccountService;
 
-// This controller handles all logic for the account page.
-public class AccountController extends SimpleFormController {
+@Controller
+@RequestMapping("/account")
+public class AccountController {
 
     private BankAccountService bankAccountService;
 
-    // Setter for Spring to inject the service bean
-    public void setBankAccountService(BankAccountService bankAccountService) {
+    public AccountController(BankAccountService bankAccountService) {
         this.bankAccountService = bankAccountService;
     }
 
-    // This method is called when the form is submitted (POST request).
-    protected ModelAndView onSubmit(Object command) throws Exception {
-        AccountForm form = (AccountForm) command;
-        ModelAndView mv = new ModelAndView(getSuccessView());
-        
+    @PostMapping
+    public ModelAndView handleAccountAction(@Valid @ModelAttribute("accountForm") AccountForm form) {
+        ModelAndView mv = new ModelAndView("account"); // Set default view name
+
         try {
             String accountNumber = form.getAccountNumber();
             String action = form.getAction();
@@ -32,19 +37,29 @@ public class AccountController extends SimpleFormController {
                 bankAccountService.withdraw(accountNumber, form.getAmount());
                 mv.addObject("message", "Withdrawal successful.");
             }
-            
-            // For all actions, we fetch and display the latest account state.
+
             BankAccount account = bankAccountService.getAccount(accountNumber);
             mv.addObject("account", account);
 
-        } catch (Exception e) {
-            // If anything goes wrong, we return to the form view with an error message.
-            // A more robust app would differentiate between user errors and system errors.
-            return new ModelAndView(getFormView())
-                .addObject("error", e.getMessage())
-                .addObject(getCommandName(), command); // Re-bind the form data
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            mv.setViewName("accountForm"); // Return to form view
+            mv.addObject("error", e.getMessage());
+            return mv; // Return immediately to avoid re-fetching account details
         }
         
+        return mv;
+    }
+
+
+    @ModelAttribute("accountForm")
+    public AccountForm getAccountForm() {
+        return new AccountForm(); // Provide a default instance of the command object
+    }
+
+    @ExceptionHandler({IllegalArgumentException.class, IllegalStateException.class})
+    public ModelAndView handleExceptions(Exception ex) {
+        ModelAndView mv = new ModelAndView("accountForm");
+        mv.addObject("error", ex.getMessage());
         return mv;
     }
 }
