@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="4" name="com.example.bank.web.AccountControllerTest" time="0.223" errors="0" skipped="0">
+<testsuite tests="4" failures="4" name="com.example.bank.web.AccountControllerTest" time="0.199" errors="0" skipped="0">
   <properties>
     <property name="jansi.mode" value="strip"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -58,13 +58,13 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="java.vendor.version" value="Temurin-17.0.13+11"/>
   </properties>
-  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitBalanceCheck" time="0.203">
+  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitBalanceCheck" time="0.103">
     <failure message="Status expected:&lt;200&gt; but was:&lt;404&gt;" type="java.lang.AssertionError">java.lang.AssertionError: Status expected:&lt;200&gt; but was:&lt;404&gt;
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
 	at org.springframework.test.web.servlet.result.StatusResultMatchers.lambda$matcher$9(StatusResultMatchers.java:627)
 	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:212)
-	at com.example.bank.web.AccountControllerTest.testSubmitBalanceCheck(AccountControllerTest.java:83)
+	at com.example.bank.web.AccountControllerTest.testSubmitBalanceCheck(AccountControllerTest.java:75)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -105,31 +105,31 @@
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </failure>
-    <system-out>18:30:50.124 [main] DEBUG org.springframework.test.context.junit4.SpringJUnit4ClassRunner - SpringJUnit4ClassRunner constructor called with [class com.example.bank.web.AccountControllerTest]
-18:30:50.130 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
-18:30:50.213 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
-18:30:50.411 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.example.bank.web.AccountControllerTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
-18:30:50.435 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.example.bank.web.AccountControllerTest], using SpringBootContextLoader
-18:30:50.438 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.example.bank.web.AccountControllerTest]: class path resource [com/example/bank/web/AccountControllerTest-context.xml] does not exist
-18:30:50.439 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.example.bank.web.AccountControllerTest]: class path resource [com/example/bank/web/AccountControllerTestContext.groovy] does not exist
-18:30:50.439 [main] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.example.bank.web.AccountControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-18:30:50.732 [main] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an &apos;annotation declaring class&apos; for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.example.bank.web.AccountControllerTest]
-18:30:50.930 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.example.bank.web.AccountControllerTest]: using defaults.
-18:30:50.930 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener]
-18:30:50.939 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttributeSource]
-18:30:50.939 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttribute]
-18:30:50.940 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4b45a2f5, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@f09733f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@e350b40, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@41a0aa7d, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@2794eab6, org.springframework.test.context.support.DirtiesContextTestExecutionListener@6340e5f0, org.springframework.test.context.event.EventPublishingTestExecutionListener@45099dd3, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@13e344d, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@1ffaf86, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@6574a52c, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@6c1a5b54, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@1c7696c6, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@60099951]
-18:30:50.942 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.example.bank.web.AccountControllerTest]
-18:30:50.943 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.example.bank.web.AccountControllerTest]
-18:30:50.944 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.example.bank.web.AccountControllerTest]
-18:30:50.944 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.example.bank.web.AccountControllerTest]
-18:30:50.944 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.example.bank.web.AccountControllerTest]
-18:30:50.944 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.example.bank.web.AccountControllerTest]
-18:30:50.944 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.example.bank.web.AccountControllerTest]
-18:30:50.945 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.example.bank.web.AccountControllerTest]
-18:30:51.010 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@563f38c4 testClass = AccountControllerTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@543295b0 testClass = AccountControllerTest, locations = &apos;{}&apos;, classes = &apos;{class com.example.bank.web.AccountControllerTest$TestConfig}&apos;, contextInitializerClasses = &apos;[]&apos;, activeProfiles = &apos;{}&apos;, propertySourceLocations = &apos;{}&apos;, propertySourceProperties = &apos;{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}&apos;, contextCustomizers = set[[ImportsContextCustomizer@54422e18 key = [org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebDriverAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcSecurityConfiguration, org.springframework.boot.test.autoconfigure.web.reactive.WebTestClientAutoConfiguration]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6973b51b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@40ef3420, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@22ea108a, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@4a94ee4, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@5b239d7d, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@4b3fa0b3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@436813f3, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@14ec4505], resourceBasePath = &apos;src/main/webapp&apos;, contextLoader = &apos;org.springframework.boot.test.context.SpringBootContextLoader&apos;, parent = [null]], attributes = map[&apos;org.springframework.test.context.web.ServletTestExecutionListener.activateListener&apos; -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
-18:30:51.012 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.example.bank.web.AccountControllerTest]
-18:30:51.012 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.example.bank.web.AccountControllerTest]
+    <system-out>18:31:41.628 [main] DEBUG org.springframework.test.context.junit4.SpringJUnit4ClassRunner - SpringJUnit4ClassRunner constructor called with [class com.example.bank.web.AccountControllerTest]
+18:31:41.634 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+18:31:41.807 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+18:31:41.952 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.example.bank.web.AccountControllerTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+18:31:42.024 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.example.bank.web.AccountControllerTest], using SpringBootContextLoader
+18:31:42.028 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.example.bank.web.AccountControllerTest]: class path resource [com/example/bank/web/AccountControllerTest-context.xml] does not exist
+18:31:42.029 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.example.bank.web.AccountControllerTest]: class path resource [com/example/bank/web/AccountControllerTestContext.groovy] does not exist
+18:31:42.029 [main] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.example.bank.web.AccountControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+18:31:42.228 [main] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an &apos;annotation declaring class&apos; for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.example.bank.web.AccountControllerTest]
+18:31:42.429 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.example.bank.web.AccountControllerTest]: using defaults.
+18:31:42.430 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener]
+18:31:42.439 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.transaction.TransactionalTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttributeSource]
+18:31:42.439 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Skipping candidate TestExecutionListener [org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener] due to a missing dependency. Specify custom listener classes or make the default listener classes and their required dependencies available. Offending class: [org/springframework/transaction/interceptor/TransactionAttribute]
+18:31:42.441 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4b45a2f5, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@f09733f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@e350b40, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@41a0aa7d, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@2794eab6, org.springframework.test.context.support.DirtiesContextTestExecutionListener@6340e5f0, org.springframework.test.context.event.EventPublishingTestExecutionListener@45099dd3, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@13e344d, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@1ffaf86, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@6574a52c, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@6c1a5b54, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@1c7696c6, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@60099951]
+18:31:42.442 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.example.bank.web.AccountControllerTest]
+18:31:42.444 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.example.bank.web.AccountControllerTest]
+18:31:42.444 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.example.bank.web.AccountControllerTest]
+18:31:42.444 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.example.bank.web.AccountControllerTest]
+18:31:42.445 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.example.bank.web.AccountControllerTest]
+18:31:42.445 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.example.bank.web.AccountControllerTest]
+18:31:42.445 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.example.bank.web.AccountControllerTest]
+18:31:42.445 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.example.bank.web.AccountControllerTest]
+18:31:42.512 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@563f38c4 testClass = AccountControllerTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@543295b0 testClass = AccountControllerTest, locations = &apos;{}&apos;, classes = &apos;{class com.example.bank.web.AccountControllerTest$TestConfig}&apos;, contextInitializerClasses = &apos;[]&apos;, activeProfiles = &apos;{}&apos;, propertySourceLocations = &apos;{}&apos;, propertySourceProperties = &apos;{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}&apos;, contextCustomizers = set[[ImportsContextCustomizer@54422e18 key = [org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebDriverAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcSecurityConfiguration, org.springframework.boot.test.autoconfigure.web.reactive.WebTestClientAutoConfiguration]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6973b51b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@40ef3420, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@22ea108a, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@4a94ee4, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@5b239d7d, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@4b3fa0b3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@436813f3, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@14ec4505], resourceBasePath = &apos;src/main/webapp&apos;, contextLoader = &apos;org.springframework.boot.test.context.SpringBootContextLoader&apos;, parent = [null]], attributes = map[&apos;org.springframework.test.context.web.ServletTestExecutionListener.activateListener&apos; -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
+18:31:42.611 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.example.bank.web.AccountControllerTest]
+18:31:42.611 [main] DEBUG org.springframework.test.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.example.bank.web.AccountControllerTest]
 
   .   ____          _            __ _ _
  /\\ / ___&apos;_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -139,13 +139,13 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.7.0)
 
-2025-06-01 18:30:51.732  INFO 1184 --- [           main] c.e.bank.web.AccountControllerTest       : Starting AccountControllerTest using Java 17.0.13 on localhost with PID 1184 (started by root in /tmp/tmpibdjhlhr/custom-spring-app)
-2025-06-01 18:30:51.734  INFO 1184 --- [           main] c.e.bank.web.AccountControllerTest       : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2025-06-01 18:30:53.934  INFO 1184 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet &apos;&apos;
-2025-06-01 18:30:53.934  INFO 1184 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet &apos;&apos;
-2025-06-01 18:30:54.614  INFO 1184 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 680 ms
-2025-06-01 18:30:54.723  INFO 1184 --- [           main] c.e.bank.web.AccountControllerTest       : Started AccountControllerTest in 3.68 seconds (JVM running for 5.783)
-2025-06-01 18:30:54.922  WARN 1184 --- [           main] o.s.web.servlet.PageNotFound             : No mapping for POST /account
+2025-06-01 18:31:43.539  INFO 1280 --- [           main] c.e.bank.web.AccountControllerTest       : Starting AccountControllerTest using Java 17.0.13 on localhost with PID 1280 (started by root in /tmp/tmpibdjhlhr/custom-spring-app)
+2025-06-01 18:31:43.541  INFO 1280 --- [           main] c.e.bank.web.AccountControllerTest       : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2025-06-01 18:31:45.809  INFO 1280 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet &apos;&apos;
+2025-06-01 18:31:45.809  INFO 1280 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet &apos;&apos;
+2025-06-01 18:31:46.421  INFO 1280 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 612 ms
+2025-06-01 18:31:46.529  INFO 1280 --- [           main] c.e.bank.web.AccountControllerTest       : Started AccountControllerTest in 3.885 seconds (JVM running for 6.102)
+2025-06-01 18:31:46.662  WARN 1280 --- [           main] o.s.web.servlet.PageNotFound             : No mapping for POST /account
 
 MockHttpServletRequest:
       HTTP Method = POST
@@ -184,13 +184,13 @@ MockHttpServletResponse:
           Cookies = []
 </system-out>
   </testcase>
-  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitWithdraw" time="0.008">
+  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitWithdraw" time="0.006">
     <failure message="Status expected:&lt;200&gt; but was:&lt;404&gt;" type="java.lang.AssertionError">java.lang.AssertionError: Status expected:&lt;200&gt; but was:&lt;404&gt;
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
 	at org.springframework.test.web.servlet.result.StatusResultMatchers.lambda$matcher$9(StatusResultMatchers.java:627)
 	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:212)
-	at com.example.bank.web.AccountControllerTest.testSubmitWithdraw(AccountControllerTest.java:70)
+	at com.example.bank.web.AccountControllerTest.testSubmitWithdraw(AccountControllerTest.java:64)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -231,7 +231,7 @@ MockHttpServletResponse:
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </failure>
-    <system-out>2025-06-01 18:30:55.011  WARN 1184 --- [           main] o.s.web.servlet.PageNotFound             : No mapping for POST /account
+    <system-out>2025-06-01 18:31:46.723  WARN 1280 --- [           main] o.s.web.servlet.PageNotFound             : No mapping for POST /account
 
 MockHttpServletRequest:
       HTTP Method = POST
@@ -270,13 +270,13 @@ MockHttpServletResponse:
           Cookies = []
 </system-out>
   </testcase>
-  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitDeposit" time="0.007">
+  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitDeposit" time="0.084">
     <failure message="Status expected:&lt;200&gt; but was:&lt;404&gt;" type="java.lang.AssertionError">java.lang.AssertionError: Status expected:&lt;200&gt; but was:&lt;404&gt;
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
 	at org.springframework.test.web.servlet.result.StatusResultMatchers.lambda$matcher$9(StatusResultMatchers.java:627)
 	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:212)
-	at com.example.bank.web.AccountControllerTest.testSubmitDeposit(AccountControllerTest.java:56)
+	at com.example.bank.web.AccountControllerTest.testSubmitDeposit(AccountControllerTest.java:53)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -317,7 +317,7 @@ MockHttpServletResponse:
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </failure>
-    <system-out>2025-06-01 18:30:55.020  WARN 1184 --- [           main] o.s.web.servlet.PageNotFound             : No mapping for POST /account
+    <system-out>2025-06-01 18:31:46.808  WARN 1280 --- [           main] o.s.web.servlet.PageNotFound             : No mapping for POST /account
 
 MockHttpServletRequest:
       HTTP Method = POST
@@ -356,13 +356,13 @@ MockHttpServletResponse:
           Cookies = []
 </system-out>
   </testcase>
-  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitWithInvalidAccount" time="0.005">
+  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitWithInvalidAccount" time="0.006">
     <failure message="Status expected:&lt;200&gt; but was:&lt;404&gt;" type="java.lang.AssertionError">java.lang.AssertionError: Status expected:&lt;200&gt; but was:&lt;404&gt;
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
 	at org.springframework.test.web.servlet.result.StatusResultMatchers.lambda$matcher$9(StatusResultMatchers.java:627)
 	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:212)
-	at com.example.bank.web.AccountControllerTest.testSubmitWithInvalidAccount(AccountControllerTest.java:97)
+	at com.example.bank.web.AccountControllerTest.testSubmitWithInvalidAccount(AccountControllerTest.java:86)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -403,7 +403,7 @@ MockHttpServletResponse:
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </failure>
-    <system-out>2025-06-01 18:30:55.029  WARN 1184 --- [           main] o.s.web.servlet.PageNotFound             : No mapping for POST /account
+    <system-out>2025-06-01 18:31:46.815  WARN 1280 --- [           main] o.s.web.servlet.PageNotFound             : No mapping for POST /account
 
 MockHttpServletRequest:
       HTTP Method = POST
