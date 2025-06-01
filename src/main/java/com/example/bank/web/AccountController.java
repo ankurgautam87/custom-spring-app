@@ -39,21 +39,25 @@ public class AccountController {
            ) {
         try {
             BankAccount account = bankAccountService.getAccount(accountNumber);
-            String message = "";
+            String message = null;
             if ("deposit".equals(action)) {
                 bankAccountService.deposit(accountNumber, amount);
                 account.setBalance(account.getBalance() + amount);
-                message = "Success";
+                message = null;
             } else if ("withdraw".equals(action)) {
                 bankAccountService.withdraw(accountNumber, amount);
                 account.setBalance(account.getBalance() - amount);
-                message = "Success";
+                message = null;
             }
 
             return new AccountDetails(account, message);
 
         } catch (Exception e) {
-           return new AccountDetails(null, e.getMessage());
+           if (e instanceof IllegalArgumentException) {
+               return new AccountDetails(null, "Invalid account number");
+           } else {
+               throw e;
+           }
         }
     }
 
