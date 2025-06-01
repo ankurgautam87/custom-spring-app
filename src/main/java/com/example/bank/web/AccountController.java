@@ -39,6 +39,10 @@ public class AccountController {
            ) {
         try {
             BankAccount account = bankAccountService.getAccount(accountNumber);
+            if (account == null) {
+                return new AccountDetails(null, "Invalid account number");
+            }
+
             String message = null;
             if ("deposit".equals(action)) {
                 bankAccountService.deposit(accountNumber, amount);
