@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="com.example.bank.web.AccountControllerTest" time="0.448" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="com.example.bank.web.AccountControllerTest" time="0.567" errors="0" skipped="0">
   <properties>
     <property name="jansi.mode" value="strip"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -58,8 +58,8 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="java.vendor.version" value="Temurin-17.0.13+11"/>
   </properties>
-  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitBalanceCheck" time="0.311"/>
+  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitBalanceCheck" time="0.479"/>
   <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitWithdraw" time="0.009"/>
-  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitDeposit" time="0.108"/>
-  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitWithInvalidAccount" time="0.02"/>
+  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitDeposit" time="0.008"/>
+  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitWithInvalidAccount" time="0.071"/>
 </testsuite>
