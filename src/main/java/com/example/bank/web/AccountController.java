@@ -6,9 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.example.bank.domain.BankAccount;
 import com.example.bank.service.BankAccountService;
@@ -31,16 +31,17 @@ public class AccountController {
     }
 
     @PostMapping
-    public String processForm(@ModelAttribute("accountForm") AccountForm form, Model model) {
+    public String processForm(
+            @RequestParam("accountNumber") String accountNumber,
+            @RequestParam("action") String action,
+            @RequestParam("amount") double amount,
+            Model model) {
         try {
-            String accountNumber = form.getAccountNumber();
-            String action = form.getAction();
-
             if ("deposit".equals(action)) {
-                bankAccountService.deposit(accountNumber, form.getAmount());
+                bankAccountService.deposit(accountNumber, amount);
                 model.addAttribute("message", "Deposit successful.");
             } else if ("withdraw".equals(action)) {
-                bankAccountService.withdraw(accountNumber, form.getAmount());
+                bankAccountService.withdraw(accountNumber, amount);
                 model.addAttribute("message", "Withdrawal successful.");
             }
 
