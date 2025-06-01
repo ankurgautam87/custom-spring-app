@@ -1,5 +1,7 @@
 com/example/bank/web/AccountController.class
 com/example/bank/service/BankAccountServiceImpl.class
+com/example/bank/web/AccountController$AccountForm.class
 com/example/bank/web/AccountForm.class
 com/example/bank/domain/BankAccount.class
+com/example/bank/web/AccountController$AccountDetails.class
 com/example/bank/service/BankAccountService.class
