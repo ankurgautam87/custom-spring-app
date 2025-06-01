@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.example.bank.domain.BankAccount;
@@ -30,11 +31,11 @@ public class AccountController {
         return "accountForm";
     }
 
-    @PostMapping
+    @RequestMapping(value = "/account", method = RequestMethod.POST, params = {"accountNumber", "action"})
     public String processForm(
             @RequestParam("accountNumber") String accountNumber,
             @RequestParam("action") String action,
-            @RequestParam("amount") double amount,
+            @RequestParam(value = "amount", required = false) Double amount,
             Model model) {
         try {
             if ("deposit".equals(action)) {
