@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.example.bank.web.AccountControllerTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 4.985 sec <<< FAILURE!
-testSubmitBalanceCheck(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.114 sec  <<< FAILURE!
+Tests run: 4, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 6.992 sec <<< FAILURE!
+testSubmitBalanceCheck(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.112 sec  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
@@ -49,7 +49,7 @@ java.lang.AssertionError: Status expected:<200> but was:<404>
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testSubmitWithdraw(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.004 sec  <<< FAILURE!
+testSubmitWithdraw(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.003 sec  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
@@ -96,7 +96,7 @@ java.lang.AssertionError: Status expected:<200> but was:<404>
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testSubmitDeposit(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.006 sec  <<< FAILURE!
+testSubmitDeposit(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.001 sec  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
@@ -143,7 +143,7 @@ java.lang.AssertionError: Status expected:<200> but was:<404>
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testSubmitWithInvalidAccount(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.063 sec  <<< FAILURE!
+testSubmitWithInvalidAccount(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.004 sec  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
