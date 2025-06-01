@@ -38,6 +38,7 @@ public class AccountController {
             @RequestParam(value = "amount", required = false) Double amount
            ) {
         try {
+            BankAccount account = bankAccountService.getAccount(accountNumber);
             if ("deposit".equals(action)) {
                 bankAccountService.deposit(accountNumber, amount);
                
@@ -46,7 +47,7 @@ public class AccountController {
                
             }
 
-            BankAccount account = bankAccountService.getAccount(accountNumber);
+            account = bankAccountService.getAccount(accountNumber);
             return new AccountDetails(account, "Success");
 
         } catch (Exception e) {
