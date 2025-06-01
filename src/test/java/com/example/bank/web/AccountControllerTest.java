@@ -52,10 +52,12 @@ public class AccountControllerTest {
 
     @Test
     public void testSubmitDeposit() throws Exception {
-        String jsonString = "{\"accountNumber\": \"" + VALID_ACCOUNT_NO + "\", \"action\": \"deposit\", \"amount\": 200.0}";
+        mockMvc.perform(MockMvcRequestBuilders.get("/account"));
+
         mockMvc.perform(MockMvcRequestBuilders.post("/account")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonString))
+                        .param("accountNumber", VALID_ACCOUNT_NO)
+                        .param("action", "deposit")
+                        .param("amount", "200.0"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
@@ -66,10 +68,12 @@ public class AccountControllerTest {
 
     @Test
     public void testSubmitWithdraw() throws Exception {
-        String jsonString = "{\"accountNumber\": \"" + VALID_ACCOUNT_NO + "\", \"action\": \"withdraw\", \"amount\": 300.0}";
+        mockMvc.perform(MockMvcRequestBuilders.get("/account"));
+
         mockMvc.perform(MockMvcRequestBuilders.post("/account")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonString))
+                        .param("accountNumber", VALID_ACCOUNT_NO)
+                        .param("action", "withdraw")
+                        .param("amount", "300.0"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
@@ -80,10 +84,11 @@ public class AccountControllerTest {
 
     @Test
     public void testSubmitBalanceCheck() throws Exception {
-        String jsonString = "{\"accountNumber\": \"" + VALID_ACCOUNT_NO + "\", \"action\": \"balance\"}";
+        mockMvc.perform(MockMvcRequestBuilders.get("/account"));
+
         mockMvc.perform(MockMvcRequestBuilders.post("/account")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonString))
+                        .param("accountNumber", VALID_ACCOUNT_NO)
+                        .param("action", "balance"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
@@ -94,10 +99,12 @@ public class AccountControllerTest {
 
     @Test
     public void testSubmitWithInvalidAccount() throws Exception {
-        String jsonString = "{\"accountNumber\": \"INVALID_ID\", \"action\": \"deposit\", \"amount\": 100.0}";
+        mockMvc.perform(MockMvcRequestBuilders.get("/account"));
+
         mockMvc.perform(MockMvcRequestBuilders.post("/account")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonString))
+                        .param("accountNumber", "INVALID_ID")
+                        .param("action", "deposit")
+                        .param("amount", "100.0"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountForm"))
                 .andExpect(model().attributeExists("error"));
