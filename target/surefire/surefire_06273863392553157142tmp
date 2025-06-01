@@ -1,6 +1,0 @@
-#surefire_0
-#Sun Jun 01 18:33:34 UTC 2025
-basedir=/tmp/tmpibdjhlhr/custom-spring-app
-user.dir=/tmp/tmpibdjhlhr/custom-spring-app
-org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
-localRepository=/root/.m2/repository

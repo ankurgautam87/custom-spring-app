@@ -39,10 +39,9 @@
     <property name="java.specification.version" value="17"/>
     <property name="user.name" value="root"/>
     <property name="java.class.path" value="/usr/share/maven/boot/plexus-classworlds-2.x.jar"/>
-    <property name="org.slf4j.simpleLogger.defaultLogLevel" value="debug"/>
     <property name="java.vm.specification.version" value="17"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B -U install -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -X"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B -U install -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn"/>
     <property name="java.home" value="/usr/lib/jvm/temurin-17-jdk-amd64"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -62,7 +61,7 @@
   <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testSuccessfulWithdraw" time="0.004"/>
   <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testSuccessfulDeposit" time="0"/>
   <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testGetAccountSuccess" time="0"/>
-  <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testDepositWithNegativeAmount" time="0"/>
+  <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testDepositWithNegativeAmount" time="0.001"/>
   <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testWithdrawWithInsufficientFunds" time="0"/>
-  <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testGetAccountFailure" time="0.001"/>
+  <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testGetAccountFailure" time="0"/>
 </testsuite>
