@@ -1,30 +1,34 @@
 package com.example.bank.web;
 
-import javax.servlet.http.HttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 import com.example.bank.domain.BankAccount;
 import com.example.bank.service.BankAccountService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import jakarta.servlet.http.HttpServletRequest;
 
-// This controller handles all logic for the account page.
-public class AccountController extends SimpleFormController {
 
-    private BankAccountService bankAccountService;
+@Controller
+@RequestMapping("/account") // Example mapping, adjust as needed
+public class AccountController {
 
-    // Setter for Spring to inject the service bean
-    public void setBankAccountService(BankAccountService bankAccountService) {
+    private final BankAccountService bankAccountService;
+
+    public AccountController(BankAccountService bankAccountService) {
         this.bankAccountService = bankAccountService;
     }
 
-    // This method is called when the form is submitted (POST request).
-    protected ModelAndView onSubmit(Object command) throws Exception {
-        AccountForm form = (AccountForm) command;
-        ModelAndView mv = new ModelAndView(getSuccessView());
-        
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<ModelAndView> submit(@ModelAttribute AccountForm form, HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView("success"); // Replace with your success view name
+
         try {
             String accountNumber = form.getAccountNumber();
             String action = form.getAction();
-            
+
             if ("deposit".equals(action)) {
                 bankAccountService.deposit(accountNumber, form.getAmount());
                 mv.addObject("message", "Deposit successful.");
@@ -32,19 +36,17 @@ public class AccountController extends SimpleFormController {
                 bankAccountService.withdraw(accountNumber, form.getAmount());
                 mv.addObject("message", "Withdrawal successful.");
             }
-            
-            // For all actions, we fetch and display the latest account state.
+
             BankAccount account = bankAccountService.getAccount(accountNumber);
             mv.addObject("account", account);
 
+            return ResponseEntity.ok(mv);
+
         } catch (Exception e) {
-            // If anything goes wrong, we return to the form view with an error message.
-            // A more robust app would differentiate between user errors and system errors.
-            return new ModelAndView(getFormView())
-                .addObject("error", e.getMessage())
-                .addObject(getCommandName(), command); // Re-bind the form data
+            mv = new ModelAndView("form"); // Replace with your form view name
+            mv.addObject("error", e.getMessage());
+            mv.addObject("accountForm", form); // Re-bind the form data using the command name "accountForm"
+            return ResponseEntity.badRequest().body(mv); // Return a 400 Bad Request with the error
         }
-        
-        return mv;
     }
 }
