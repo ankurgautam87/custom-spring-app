@@ -15,6 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -51,7 +52,10 @@ public class AccountControllerTest {
 
     @Test
     public void testSubmitDeposit() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/account?accountNumber=" + VALID_ACCOUNT_NO + "&action=deposit&amount=200.0"))
+        String jsonString = "{\"accountNumber\": \"" + VALID_ACCOUNT_NO + "\", \"action\": \"deposit\", \"amount\": 200.0}";
+        mockMvc.perform(MockMvcRequestBuilders.post("/account")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonString))
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
@@ -62,7 +66,10 @@ public class AccountControllerTest {
 
     @Test
     public void testSubmitWithdraw() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/account?accountNumber=" + VALID_ACCOUNT_NO + "&action=withdraw&amount=300.0"))
+        String jsonString = "{\"accountNumber\": \"" + VALID_ACCOUNT_NO + "\", \"action\": \"withdraw\", \"amount\": 300.0}";
+        mockMvc.perform(MockMvcRequestBuilders.post("/account")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonString))
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
@@ -73,7 +80,10 @@ public class AccountControllerTest {
 
     @Test
     public void testSubmitBalanceCheck() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/account?accountNumber=" + VALID_ACCOUNT_NO + "&action=balance"))
+        String jsonString = "{\"accountNumber\": \"" + VALID_ACCOUNT_NO + "\", \"action\": \"balance\"}";
+        mockMvc.perform(MockMvcRequestBuilders.post("/account")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonString))
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
@@ -84,7 +94,10 @@ public class AccountControllerTest {
 
     @Test
     public void testSubmitWithInvalidAccount() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/account?accountNumber=INVALID_ID&action=deposit&amount=100.0"))
+        String jsonString = "{\"accountNumber\": \"INVALID_ID\", \"action\": \"deposit\", \"amount\": 100.0}";
+        mockMvc.perform(MockMvcRequestBuilders.post("/account")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonString))
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountForm"))
                 .andExpect(model().attributeExists("error"));
