@@ -17,6 +17,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -101,7 +104,8 @@ public class AccountControllerTest {
 
         @Bean
         public BankAccountServiceImpl bankAccountService() {
-            return new BankAccountServiceImpl();
+            Map<String, BankAccount> accountMap = new HashMap<>();
+            return new BankAccountServiceImpl(accountMap);
         }
     }
 }
