@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.example.bank.web.AccountControllerTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 6.415 sec <<< FAILURE!
-testSubmitBalanceCheck(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.394 sec  <<< FAILURE!
+Tests run: 4, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 6.979 sec <<< FAILURE!
+testSubmitBalanceCheck(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.569 sec  <<< FAILURE!
 java.lang.AssertionError: Expected no value at JSON path "$.message" but found: 'Success'
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:37)
 	at org.springframework.test.util.AssertionErrors.assertTrue(AssertionErrors.java:70)
@@ -98,7 +98,7 @@ java.lang.AssertionError: JSON path "$.account.balance" expected:<700.0> but was
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testSubmitDeposit(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.165 sec  <<< FAILURE!
+testSubmitDeposit(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.009 sec  <<< FAILURE!
 java.lang.AssertionError: JSON path "$.account.balance" expected:<1200.0> but was:<1000.0>
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
@@ -146,7 +146,7 @@ java.lang.AssertionError: JSON path "$.account.balance" expected:<1200.0> but wa
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testSubmitWithInvalidAccount(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.015 sec  <<< FAILURE!
+testSubmitWithInvalidAccount(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.092 sec  <<< FAILURE!
 java.lang.AssertionError: message
 Expected: Invalid account number
      got: Success
