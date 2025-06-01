@@ -49,10 +49,7 @@ public class AccountControllerTest {
 
     @Test
     public void testSubmitDeposit() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/account")
-                        .param("accountNumber", VALID_ACCOUNT_NO)
-                        .param("action", "deposit")
-                        .param("amount", "200.0"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/account?accountNumber=" + VALID_ACCOUNT_NO + "&action=deposit&amount=200.0"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
@@ -63,10 +60,7 @@ public class AccountControllerTest {
 
     @Test
     public void testSubmitWithdraw() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/account")
-                        .param("accountNumber", VALID_ACCOUNT_NO)
-                        .param("action", "withdraw")
-                        .param("amount", "300.0"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/account?accountNumber=" + VALID_ACCOUNT_NO + "&action=withdraw&amount=300.0"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
@@ -77,9 +71,7 @@ public class AccountControllerTest {
 
     @Test
     public void testSubmitBalanceCheck() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/account")
-                        .param("accountNumber", VALID_ACCOUNT_NO)
-                        .param("action", "balance"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/account?accountNumber=" + VALID_ACCOUNT_NO + "&action=balance"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
@@ -90,10 +82,7 @@ public class AccountControllerTest {
 
     @Test
     public void testSubmitWithInvalidAccount() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/account")
-                        .param("accountNumber", "INVALID_ID")
-                        .param("action", "deposit")
-                        .param("amount", "100.0"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/account?accountNumber=INVALID_ID&action=deposit&amount=100.0"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountForm"))
                 .andExpect(model().attributeExists("error"));
