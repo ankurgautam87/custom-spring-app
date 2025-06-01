@@ -102,7 +102,7 @@
                 <version>6.1.26</version>
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
-                    <webAppSourceDirectory>WEB-INF</webAppSourceDirectory>
+                    <webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -110,7 +110,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
                 <configuration>
-                    <webXml>WEB-INF/web.xml</webXml>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                 </configuration>
             </plugin>
         </plugins>
