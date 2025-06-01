@@ -10,10 +10,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -49,7 +47,7 @@ public class AccountControllerTest {
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
                 .andExpect(model().attributeExists("message"))
-                .andExpect(model().attribute("account", (BankAccount ba) -> ba.getBalance() == 1200.0));
+                .andExpect(model().attribute("account", hasProperty("balance", is(1200.0))));
     }
 
     @Test
@@ -62,7 +60,7 @@ public class AccountControllerTest {
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
                 .andExpect(model().attributeExists("message"))
-                .andExpect(model().attribute("account", (BankAccount ba) -> ba.getBalance() == 700.0));
+                .andExpect(model().attribute("account", hasProperty("balance", is(700.0))));
     }
 
     @Test
@@ -73,7 +71,7 @@ public class AccountControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
-                .andExpect(model().attribute("account", (BankAccount ba) -> ba.getBalance() == 1000.0));
+                .andExpect(model().attribute("account", hasProperty("balance", is(1000.0))));
     }
 
     @Test
