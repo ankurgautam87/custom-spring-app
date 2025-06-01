@@ -52,62 +52,53 @@ public class AccountControllerTest {
 
     @Test
     public void testSubmitDeposit() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/account"));
-
         mockMvc.perform(MockMvcRequestBuilders.post("/account")
                         .param("accountNumber", VALID_ACCOUNT_NO)
                         .param("action", "deposit")
                         .param("amount", "200.0"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("accountResult"))
-                .andExpect(model().attributeExists("account"))
-                .andExpect(model().attributeExists("message"));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value("Success"))
+                .andExpect(jsonPath("$.account.balance").value(1200.0));
 
         Mockito.verify(mockService).deposit(VALID_ACCOUNT_NO, 200.0);
     }
 
     @Test
     public void testSubmitWithdraw() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/account"));
-
         mockMvc.perform(MockMvcRequestBuilders.post("/account")
                         .param("accountNumber", VALID_ACCOUNT_NO)
                         .param("action", "withdraw")
                         .param("amount", "300.0"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("accountResult"))
-                .andExpect(model().attributeExists("account"))
-                .andExpect(model().attributeExists("message"));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value("Success"))
+                .andExpect(jsonPath("$.account.balance").value(700.0));
 
         Mockito.verify(mockService).withdraw(VALID_ACCOUNT_NO, 300.0);
     }
 
     @Test
     public void testSubmitBalanceCheck() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/account"));
-
         mockMvc.perform(MockMvcRequestBuilders.post("/account")
                         .param("accountNumber", VALID_ACCOUNT_NO)
                         .param("action", "balance"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("accountResult"))
-                .andExpect(model().attributeExists("account"))
-                .andExpect(model().attributeDoesNotExist("message"));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.account.balance").value(1000.0))
+                .andExpect(jsonPath("$.message").doesNotExist());
 
         Mockito.verify(mockService).getAccount(VALID_ACCOUNT_NO);
     }
 
     @Test
     public void testSubmitWithInvalidAccount() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/account"));
-
         mockMvc.perform(MockMvcRequestBuilders.post("/account")
                         .param("accountNumber", "INVALID_ID")
                         .param("action", "deposit")
                         .param("amount", "100.0"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("accountForm"))
-                .andExpect(model().attributeExists("error"));
+                .andExpect(content().json("{\"account\": null, \"message\": \"Invalid account number\"}"));
 
         Mockito.verify(mockService, Mockito.never()).deposit(Mockito.anyString(), Mockito.anyDouble());
     }
