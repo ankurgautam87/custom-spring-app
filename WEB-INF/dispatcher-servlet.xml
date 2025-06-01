@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!--
+    This context file defines the "web" layer of the application.
+    This includes controllers, view resolvers, and URL mappings.
+    -->
+
+    <!-- 1. The Controller -->
+    <!--
+      - This controller handles the account form. It extends SimpleFormController,
+      - a classic way to handle form display (GET) and submission (POST).
+    -->
+    <bean name="/account.htm" class="com.example.bank.web.AccountController">
+        <!-- Dependency Injection: Give the controller access to the business service -->
+        <property name="bankAccountService" ref="bankAccountService"/>
+        
+        <!-- Configuration for the SimpleFormController -->
+        <property name="commandName" value="accountCommand"/>
+        <property name="commandClass" value="com.example.bank.web.AccountForm"/>
+        <property name="formView" value="accountForm"/> <!-- Logical name for the form JSP -->
+        <property name="successView" value="accountResult"/> <!-- Logical name for the result JSP -->
+    </bean>
+
+    <!-- 2. The View Resolver -->
+    <!--
+      - This bean resolves the logical view names from the controller (like "accountForm")
+      - into actual JSP file paths.
+      - e.g., "accountForm" -> "/WEB-INF/jsp/accountForm.jsp"
+    -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+</beans>

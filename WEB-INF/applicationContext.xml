@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!--
+    This context file defines the "business" layer of the application.
+    Here we define our services, DAOs, etc.
+    -->
+
+    <!-- The service responsible for bank account operations -->
+    <bean id="bankAccountService" class="com.example.bank.service.BankAccountServiceImpl">
+        <!-- In a real application, this would be a dataSource pointing to a DB -->
+        <!-- For this example, we pre-populate the service with a simple Map -->
+        <constructor-arg>
+            <map>
+                <entry key="12345">
+                    <bean class="com.example.bank.domain.BankAccount">
+                        <property name="accountNumber" value="12345"/>
+                        <property name="ownerName" value="John Doe"/>
+                        <property name="balance" value="1500.00"/>
+                    </bean>
+                </entry>
+                <entry key="67890">
+                    <bean class="com.example.bank.domain.BankAccount">
+                        <property name="accountNumber" value="67890"/>
+                        <property name="ownerName" value="Jane Smith"/>
+                        <property name="balance" value="3250.50"/>
+                    </bean>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
+</beans>
