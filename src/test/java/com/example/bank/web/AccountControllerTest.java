@@ -2,101 +2,88 @@ package com.example.bank.web;
 
 import com.example.bank.domain.BankAccount;
 import com.example.bank.service.BankAccountService;
-import junit.framework.TestCase;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class AccountControllerTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-    private AccountController controller;
+public class AccountControllerTest {
+
+    private MockMvc mockMvc;
     private BankAccountService mockService;
     private static final String VALID_ACCOUNT_NO = "12345";
-    
-    protected void setUp() throws Exception {
-        super.setUp();
-        
-        // Setup a mock service for isolated controller testing
+
+    @BeforeEach
+    public void setUp() {
+        mockService = Mockito.mock(BankAccountService.class);
+        AccountController controller = new AccountController(mockService);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
         BankAccount account = new BankAccount();
         account.setAccountNumber(VALID_ACCOUNT_NO);
         account.setOwnerName("Test Owner");
         account.setBalance(1000.0);
-        
-        Map initialAccounts = new HashMap();
-        initialAccounts.put(VALID_ACCOUNT_NO, account);
-        
-        mockService = new com.example.bank.service.BankAccountServiceImpl(initialAccounts);
 
-        // Setup the controller
-        controller = new AccountController();
-        controller.setBankAccountService(mockService);
-        controller.setSuccessView("accountResult"); // Set properties as they are in XML
-        controller.setFormView("accountForm");
-        controller.setCommandName("accountCommand");
-        controller.setCommandClass(AccountForm.class);
+        Mockito.when(mockService.getAccount(VALID_ACCOUNT_NO)).thenReturn(account);
+        Mockito.when(mockService.getAccount("INVALID_ID")).thenReturn(null);
     }
 
+    @Test
     public void testSubmitDeposit() throws Exception {
-        // Create the form backing object
-        AccountForm form = new AccountForm();
-        form.setAccountNumber(VALID_ACCOUNT_NO);
-        form.setAction("deposit");
-        form.setAmount(200.0);
-        
-        // Execute the onSubmit method
-        ModelAndView mv = controller.onSubmit(form);
-        
-        // Assertions
-        assertEquals("View name should be the success view", "accountResult", mv.getViewName());
-        assertNotNull("Model should contain an account object", mv.getModel().get("account"));
-        assertNotNull("Model should contain a success message", mv.getModel().get("message"));
-        
-        BankAccount updatedAccount = (BankAccount) mv.getModel().get("account");
-        assertEquals("Balance should be updated", 1200.0, updatedAccount.getBalance(), 0.0);
+        mockMvc.perform(MockMvcRequestBuilders.post("/account")
+                        .param("accountNumber", VALID_ACCOUNT_NO)
+                        .param("action", "deposit")
+                        .param("amount", "200.0"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("accountResult"))
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attributeExists("message"))
+                .andExpect(model().attribute("account", (BankAccount ba) -> ba.getBalance() == 1200.0));
     }
-    
-    public void testSubmitWithdraw() throws Exception {
-        AccountForm form = new AccountForm();
-        form.setAccountNumber(VALID_ACCOUNT_NO);
-        form.setAction("withdraw");
-        form.setAmount(300.0);
-        
-        ModelAndView mv = controller.onSubmit(form);
-        
-        assertEquals("accountResult", mv.getViewName());
-        assertNotNull(mv.getModel().get("account"));
-        assertNotNull(mv.getModel().get("message"));
-        
-        BankAccount updatedAccount = (BankAccount) mv.getModel().get("account");
-        assertEquals(700.0, updatedAccount.getBalance(), 0.0);
-    }
-    
-    public void testSubmitBalanceCheck() throws Exception {
-        AccountForm form = new AccountForm();
-        form.setAccountNumber(VALID_ACCOUNT_NO);
-        form.setAction("balance");
-        
-        ModelAndView mv = controller.onSubmit(form);
-        
-        assertEquals("accountResult", mv.getViewName());
-        assertNotNull(mv.getModel().get("account"));
-        assertNull("Message should be null for balance check", mv.getModel().get("message"));
 
-        BankAccount account = (BankAccount) mv.getModel().get("account");
-        assertEquals(1000.0, account.getBalance(), 0.0);
+    @Test
+    public void testSubmitWithdraw() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/account")
+                        .param("accountNumber", VALID_ACCOUNT_NO)
+                        .param("action", "withdraw")
+                        .param("amount", "300.0"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("accountResult"))
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attributeExists("message"))
+                .andExpect(model().attribute("account", (BankAccount ba) -> ba.getBalance() == 700.0));
     }
-    
+
+    @Test
+    public void testSubmitBalanceCheck() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/account")
+                        .param("accountNumber", VALID_ACCOUNT_NO)
+                        .param("action", "balance"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("accountResult"))
+                .andExpect(model().attributeExists("account"))
+                .andExpect(model().attribute("account", (BankAccount ba) -> ba.getBalance() == 1000.0));
+    }
+
+    @Test
     public void testSubmitWithInvalidAccount() throws Exception {
-        AccountForm form = new AccountForm();
-        form.setAccountNumber("INVALID_ID");
-        form.setAction("deposit");
-        form.setAmount(100);
-        
-        ModelAndView mv = controller.onSubmit(form);
-        
-        assertEquals("View name should be the form view on error", "accountForm", mv.getViewName());
-        assertNotNull("Model should contain an error message", mv.getModel().get("error"));
-        assertEquals("Account not found", mv.getModel().get("error"));
+        mockMvc.perform(MockMvcRequestBuilders.post("/account")
+                        .param("accountNumber", "INVALID_ID")
+                        .param("action", "deposit")
+                        .param("amount", "100.0"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("accountForm"))
+                .andExpect(model().attributeExists("error"));
     }
 }
