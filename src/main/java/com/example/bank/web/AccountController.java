@@ -39,16 +39,18 @@ public class AccountController {
            ) {
         try {
             BankAccount account = bankAccountService.getAccount(accountNumber);
+            String message = "";
             if ("deposit".equals(action)) {
                 bankAccountService.deposit(accountNumber, amount);
-               
+                account.setBalance(account.getBalance() + amount);
+                message = "Success";
             } else if ("withdraw".equals(action)) {
                 bankAccountService.withdraw(accountNumber, amount);
-               
+                account.setBalance(account.getBalance() - amount);
+                message = "Success";
             }
 
-            account = bankAccountService.getAccount(accountNumber);
-            return new AccountDetails(account, "Success");
+            return new AccountDetails(account, message);
 
         } catch (Exception e) {
            return new AccountDetails(null, e.getMessage());
