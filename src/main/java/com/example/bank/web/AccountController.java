@@ -29,7 +29,7 @@ public class AccountController {
         return new AccountForm();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping(produces = "application/json")
     public AccountDetails processForm(
             @RequestParam("accountNumber") String accountNumber,
             @RequestParam("action") String action,
