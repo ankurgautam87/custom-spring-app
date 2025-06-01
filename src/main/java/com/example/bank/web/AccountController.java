@@ -2,19 +2,18 @@ package com.example.bank.web;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.example.bank.domain.BankAccount;
 import com.example.bank.service.BankAccountService;
 
-@Controller
+@RestController
 @RequestMapping("/account")
 public class AccountController {
 
@@ -26,33 +25,60 @@ public class AccountController {
     }
 
     @GetMapping
-    public String showForm(Model model) {
-        model.addAttribute("accountForm", new AccountForm());
-        return "accountForm";
+    public AccountForm showForm() {
+        return new AccountForm();
     }
 
     @RequestMapping(value = "/account", method = RequestMethod.POST)
-    public String processForm(
+    public AccountDetails processForm(
             @RequestParam("accountNumber") String accountNumber,
             @RequestParam("action") String action,
-            @RequestParam(value = "amount", required = false) Double amount,
-            Model model) {
+            @RequestParam(value = "amount", required = false) Double amount
+           ) {
         try {
             if ("deposit".equals(action)) {
                 bankAccountService.deposit(accountNumber, amount);
-                model.addAttribute("message", "Deposit successful.");
+               
             } else if ("withdraw".equals(action)) {
                 bankAccountService.withdraw(accountNumber, amount);
-                model.addAttribute("message", "Withdrawal successful.");
+               
             }
 
             BankAccount account = bankAccountService.getAccount(accountNumber);
-            model.addAttribute("account", account);
-            return "accountDetails";
+            return new AccountDetails(account, "Success");
 
         } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "accountForm";
+           return new AccountDetails(null, e.getMessage());
+        }
+    }
+
+    public static class AccountForm {
+        // Add form fields if necessary
+    }
+    public static class AccountDetails {
+        private BankAccount account;
+        private String message;
+        // Constructor, getters and setters
+        
+        public AccountDetails(BankAccount account, String message) {
+            this.account = account;
+            this.message = message;
+        }
+
+        public BankAccount getAccount() {
+            return account;
+        }
+
+        public void setAccount(BankAccount account) {
+            this.account = account;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
         }
     }
 
