@@ -31,7 +31,7 @@ public class AccountController {
         return "accountForm";
     }
 
-    @RequestMapping(value = "/account", method = RequestMethod.POST, params = {"accountNumber", "action"})
+    @RequestMapping(value = "/account", method = RequestMethod.POST)
     public String processForm(
             @RequestParam("accountNumber") String accountNumber,
             @RequestParam("action") String action,
