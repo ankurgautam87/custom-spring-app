@@ -2,6 +2,7 @@ package com.example.bank.web;
 
 import com.example.bank.domain.BankAccount;
 import com.example.bank.service.BankAccountService;
+import com.example.bank.service.BankAccountServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -17,7 +20,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = AccountControllerTest.TestConfig.class)
 public class AccountControllerTest {
 
     @Autowired
@@ -91,5 +94,14 @@ public class AccountControllerTest {
                 .andExpect(model().attributeExists("error"));
 
         Mockito.verify(mockService, Mockito.never()).deposit(Mockito.anyString(), Mockito.anyDouble());
+    }
+
+    @Configuration
+    static class TestConfig {
+
+        @Bean
+        public BankAccountServiceImpl bankAccountService() {
+            return new BankAccountServiceImpl();
+        }
     }
 }
