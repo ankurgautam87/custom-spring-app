@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.example.bank.web.AccountControllerTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 5.696 sec <<< FAILURE!
-testSubmitBalanceCheck(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.103 sec  <<< FAILURE!
+Tests run: 4, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 6.011 sec <<< FAILURE!
+testSubmitBalanceCheck(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.278 sec  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
@@ -49,7 +49,7 @@ java.lang.AssertionError: Status expected:<200> but was:<404>
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testSubmitWithdraw(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.006 sec  <<< FAILURE!
+testSubmitWithdraw(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.01 sec  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
@@ -96,7 +96,7 @@ java.lang.AssertionError: Status expected:<200> but was:<404>
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testSubmitDeposit(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.084 sec  <<< FAILURE!
+testSubmitDeposit(com.example.bank.web.AccountControllerTest)  Time elapsed: 0.006 sec  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<404>
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
