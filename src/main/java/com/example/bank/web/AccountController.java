@@ -43,10 +43,12 @@ public class AccountController {
             if ("deposit".equals(action)) {
                 bankAccountService.deposit(accountNumber, amount);
                 account.setBalance(account.getBalance() + amount);
-                message = null;
+                message = "Success";
             } else if ("withdraw".equals(action)) {
                 bankAccountService.withdraw(accountNumber, amount);
                 account.setBalance(account.getBalance() - amount);
+                message = "Success";
+            } else if ("balance".equals(action)) {
                 message = null;
             }
 
