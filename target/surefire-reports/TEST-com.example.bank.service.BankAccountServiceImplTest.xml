@@ -58,10 +58,10 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="java.vendor.version" value="Temurin-17.0.13+11"/>
   </properties>
-  <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testSuccessfulWithdraw" time="0.004"/>
+  <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testSuccessfulWithdraw" time="0.003"/>
   <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testSuccessfulDeposit" time="0"/>
   <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testGetAccountSuccess" time="0"/>
   <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testDepositWithNegativeAmount" time="0"/>
   <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testWithdrawWithInsufficientFunds" time="0"/>
-  <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testGetAccountFailure" time="0"/>
+  <testcase classname="com.example.bank.service.BankAccountServiceImplTest" name="testGetAccountFailure" time="0.001"/>
 </testsuite>
