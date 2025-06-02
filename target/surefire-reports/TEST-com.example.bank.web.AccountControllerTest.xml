@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="com.example.bank.web.AccountControllerTest" time="0.191" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="com.example.bank.web.AccountControllerTest" time="0.103" errors="0" skipped="0">
   <properties>
     <property name="jansi.mode" value="strip"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -21,6 +21,7 @@
     <property name="java.io.tmpdir" value="/tmp"/>
     <property name="line.separator" value="
 "/>
+    <property name="jetty.http.port" value="8081 jetty:run"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Linux"/>
     <property name="classworlds.conf" value="/usr/share/maven/bin/m2.conf"/>
@@ -41,7 +42,7 @@
     <property name="java.class.path" value="/usr/share/maven/boot/plexus-classworlds-2.x.jar"/>
     <property name="java.vm.specification.version" value="17"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B -U install -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B -U install -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -Djetty.http.port=8081 jetty:run"/>
     <property name="java.home" value="/usr/lib/jvm/temurin-17-jdk-amd64"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -58,7 +59,7 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="java.vendor.version" value="Temurin-17.0.13+11"/>
   </properties>
-  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitBalanceCheck" time="0.191"/>
+  <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitBalanceCheck" time="0.103"/>
   <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitWithdraw" time="0"/>
   <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitDeposit" time="0"/>
   <testcase classname="com.example.bank.web.AccountControllerTest" name="testSubmitWithInvalidAccount" time="0"/>
