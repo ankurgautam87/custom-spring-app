@@ -5,12 +5,14 @@ import com.example.bank.service.BankAccountService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class AccountControllerTest {
@@ -47,8 +49,10 @@ public class AccountControllerTest {
         form.setAction("deposit");
         form.setAmount(200.0);
 
+        BindingResult mockBindingResult = mock(BindingResult.class);
+
         // Execute the handleRequest method
-        ModelAndView mv = controller.handleAccountAction(form);
+        ModelAndView mv = controller.handleAccountAction(form, mockBindingResult);
 
         // Assertions
         assertEquals("accountResult", mv.getViewName());
@@ -66,7 +70,9 @@ public class AccountControllerTest {
         form.setAction("withdraw");
         form.setAmount(300.0);
 
-        ModelAndView mv = controller.handleAccountAction(form);
+        BindingResult mockBindingResult = mock(BindingResult.class);
+
+        ModelAndView mv = controller.handleAccountAction(form, mockBindingResult);
 
         assertEquals("accountResult", mv.getViewName());
         assertNotNull(mv.getModel().get("account"));
@@ -82,7 +88,9 @@ public class AccountControllerTest {
         form.setAccountNumber(VALID_ACCOUNT_NO);
         form.setAction("balance");
 
-        ModelAndView mv = controller.handleAccountAction(form);
+        BindingResult mockBindingResult = mock(BindingResult.class);
+
+        ModelAndView mv = controller.handleAccountAction(form, mockBindingResult);
 
         assertEquals("accountResult", mv.getViewName());
         assertNotNull(mv.getModel().get("account"));
@@ -99,7 +107,9 @@ public class AccountControllerTest {
         form.setAction("deposit");
         form.setAmount(100);
 
-        ModelAndView mv = controller.handleAccountAction(form);
+        BindingResult mockBindingResult = mock(BindingResult.class);
+
+        ModelAndView mv = controller.handleAccountAction(form, mockBindingResult);
 
         assertEquals("accountForm", mv.getViewName());
         assertNotNull(mv.getModel().get("error"));
