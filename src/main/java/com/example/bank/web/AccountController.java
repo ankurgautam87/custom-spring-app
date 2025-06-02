@@ -1,5 +1,8 @@
 package com.example.bank.web;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -7,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.bank.domain.BankAccount;
@@ -18,27 +20,41 @@ import com.example.bank.service.BankAccountService;
 public class AccountController {
 
     private final BankAccountService bankAccountService;
+    private final String successView;
+    private final String formView;
+    private final String commandName;
+    private final Class<AccountForm> commandClass;
 
-    public AccountController(BankAccountService bankAccountService) {
+
+    public AccountController(BankAccountService bankAccountService, String successView, String formView, String commandName, Class<AccountForm> commandClass) {
         this.bankAccountService = bankAccountService;
+        this.successView = successView;
+        this.formView = formView;
+        this.commandName = commandName;
+        this.commandClass = commandClass;
     }
 
     @GetMapping
     public ModelAndView accountForm(Model model) {
-        model.addAttribute("accountForm", new AccountForm());
-        return new ModelAndView("accountForm"); // Assumes "accountForm" is the view name
+        model.addAttribute(commandName, commandClass.getDeclaredConstructor().newInstance());
+        return new ModelAndView(formView);
     }
 
     @PostMapping
-    public ModelAndView handleAccountAction(@ModelAttribute("accountForm") AccountForm form, BindingResult bindingResult, Model model) {
+    public ModelAndView handleAccountAction(
+            @ModelAttribute(commandName) AccountForm form, 
+            BindingResult bindingResult, 
+            Model model,
+            HttpServletRequest request, 
+            HttpServletResponse response) throws Exception {
 
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("accountForm"); // Return to form with errors
+            return new ModelAndView(formView);
         }
 
         String accountNumber = form.getAccountNumber();
         String action = form.getAction();
-        ModelAndView mv = new ModelAndView("account"); // Assumes "account" is the result view
+
         try {
             if ("deposit".equals(action)) {
                 bankAccountService.deposit(accountNumber, form.getAmount());
@@ -52,13 +68,10 @@ public class AccountController {
             model.addAttribute("account", account);
 
         } catch (Exception e) {
-            // Handle exceptions appropriately (e.g., logging, specific error messages)
             model.addAttribute("error", e.getMessage());
-            return new ModelAndView("accountForm");
+            return new ModelAndView(formView); 
         }
         
-        return mv;
+        return new ModelAndView(successView);
     }
-
-
 }
