@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Optional;
 
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -34,6 +35,7 @@ public class AccountControllerTest {
         account.setBalance(1000.0);
 
         when(mockService.getAccount(VALID_ACCOUNT_NO)).thenReturn(Optional.of(account));
+        when(mockService.getAccount("INVALID_ID")).thenReturn(Optional.empty());
     }
 
     @Test
@@ -45,7 +47,7 @@ public class AccountControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
-                .andExpect(model().attribute("account", (BankAccount ba) -> ba.getBalance() == 1200.0));
+                .andExpect(model().attribute("account", hasProperty("balance", is(1200.0))));
     }
 
     @Test
@@ -57,7 +59,7 @@ public class AccountControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
-                .andExpect(model().attribute("account", (BankAccount ba) -> ba.getBalance() == 700.0));
+                .andExpect(model().attribute("account", hasProperty("balance", is(700.0))));
     }
 
     @Test
@@ -68,7 +70,7 @@ public class AccountControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("accountResult"))
                 .andExpect(model().attributeExists("account"))
-                .andExpect(model().attribute("account", (BankAccount ba) -> ba.getBalance() == 1000.0));
+                .andExpect(model().attribute("account", hasProperty("balance", is(1000.0))));
     }
 
     @Test
