@@ -19,25 +19,23 @@ import com.example.bank.service.BankAccountService;
 public class AccountController {
 
     private final BankAccountService bankAccountService;
-    private final String commandName;
     private final Class<AccountForm> commandClass;
 
 
-    public AccountController(BankAccountService bankAccountService, String commandName, Class<AccountForm> commandClass) {
+    public AccountController(BankAccountService bankAccountService, Class<AccountForm> commandClass) {
         this.bankAccountService = bankAccountService;
-        this.commandName = commandName;
         this.commandClass = commandClass;
     }
 
     @GetMapping("/accountForm")
     public ModelAndView accountForm(Model model) throws InstantiationException, IllegalAccessException, java.lang.reflect.InvocationTargetException, NoSuchMethodException {
-        model.addAttribute(commandName, commandClass.getDeclaredConstructor().newInstance());
+        model.addAttribute("accountForm", commandClass.getDeclaredConstructor().newInstance());
         return new ModelAndView("accountForm");
     }
 
     @PostMapping("/account")
     public ModelAndView handleAccountAction(
-            @ModelAttribute(commandName) AccountForm form, 
+            @ModelAttribute("accountForm") AccountForm form, 
             BindingResult bindingResult) throws Exception {
 
         if (bindingResult.hasErrors()) {
