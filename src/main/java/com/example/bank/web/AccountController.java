@@ -1,50 +1,53 @@
 package com.example.bank.web;
 
-import javax.servlet.http.HttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.example.bank.domain.BankAccount;
 import com.example.bank.service.BankAccountService;
 
-// This controller handles all logic for the account page.
-public class AccountController extends SimpleFormController {
+@Controller
+@RequestMapping("/account") // Example mapping, adapt as needed
+public class AccountController {
 
     private BankAccountService bankAccountService;
 
-    // Setter for Spring to inject the service bean
+    @Autowired
     public void setBankAccountService(BankAccountService bankAccountService) {
         this.bankAccountService = bankAccountService;
     }
 
-    // This method is called when the form is submitted (POST request).
-    protected ModelAndView onSubmit(Object command) throws Exception {
-        AccountForm form = (AccountForm) command;
-        ModelAndView mv = new ModelAndView(getSuccessView());
+    @RequestMapping(method = RequestMethod.POST)
+    public String submit(@ModelAttribute("accountForm") AccountForm form, ModelMap model) {
         
         try {
             String accountNumber = form.getAccountNumber();
             String action = form.getAction();
-            
+
             if ("deposit".equals(action)) {
                 bankAccountService.deposit(accountNumber, form.getAmount());
-                mv.addObject("message", "Deposit successful.");
+                model.addAttribute("message", "Deposit successful.");
             } else if ("withdraw".equals(action)) {
                 bankAccountService.withdraw(accountNumber, form.getAmount());
-                mv.addObject("message", "Withdrawal successful.");
+                model.addAttribute("message", "Withdrawal successful.");
             }
-            
-            // For all actions, we fetch and display the latest account state.
+
             BankAccount account = bankAccountService.getAccount(accountNumber);
-            mv.addObject("account", account);
+            model.addAttribute("account", account);
+
+            return "successView"; // Replace with your success view name
 
         } catch (Exception e) {
-            // If anything goes wrong, we return to the form view with an error message.
-            // A more robust app would differentiate between user errors and system errors.
-            return new ModelAndView(getFormView())
-                .addObject("error", e.getMessage())
-                .addObject(getCommandName(), command); // Re-bind the form data
+            model.addAttribute("error", e.getMessage());
+            // Re-bind the form data using the same model attribute name as in the form
+            model.addAttribute("accountForm", form); 
+            return "formView"; // Replace with your form view name
         }
-        
-        return mv;
     }
+
+
 }
