@@ -36,7 +36,7 @@ public class AccountControllerTest {
 
 
         // Setup the controller with constructor injection
-        controller = new AccountController(mockService, "accountResult", "accountForm", "accountCommand", AccountForm.class);
+        controller = new AccountController(mockService, AccountForm.class);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class AccountControllerTest {
         form.setAmount(200.0);
 
         // Execute the handleRequest method
-        ModelAndView mv = controller.handleRequest(form);
+        ModelAndView mv = controller.handleAccountAction(form);
 
         // Assertions
         assertEquals("accountResult", mv.getViewName());
@@ -66,7 +66,7 @@ public class AccountControllerTest {
         form.setAction("withdraw");
         form.setAmount(300.0);
 
-        ModelAndView mv = controller.handleRequest(form);
+        ModelAndView mv = controller.handleAccountAction(form);
 
         assertEquals("accountResult", mv.getViewName());
         assertNotNull(mv.getModel().get("account"));
@@ -82,7 +82,7 @@ public class AccountControllerTest {
         form.setAccountNumber(VALID_ACCOUNT_NO);
         form.setAction("balance");
 
-        ModelAndView mv = controller.handleRequest(form);
+        ModelAndView mv = controller.handleAccountAction(form);
 
         assertEquals("accountResult", mv.getViewName());
         assertNotNull(mv.getModel().get("account"));
@@ -99,7 +99,7 @@ public class AccountControllerTest {
         form.setAction("deposit");
         form.setAmount(100);
 
-        ModelAndView mv = controller.handleRequest(form);
+        ModelAndView mv = controller.handleAccountAction(form);
 
         assertEquals("accountForm", mv.getViewName());
         assertNotNull(mv.getModel().get("error"));
