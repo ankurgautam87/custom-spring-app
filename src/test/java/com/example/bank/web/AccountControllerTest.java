@@ -35,7 +35,7 @@ public class AccountControllerTest {
         account.setBalance(1000.0);
 
         when(mockService.getAccount(VALID_ACCOUNT_NO)).thenReturn(Optional.of(account));
-        when(mockService.getAccount("INVALID_ID")).thenReturn(Optional.empty());
+        when(mockService.getAccount("INVALID_ID")).thenReturn((Optional<BankAccount>)Optional.empty());
     }
 
     @Test
