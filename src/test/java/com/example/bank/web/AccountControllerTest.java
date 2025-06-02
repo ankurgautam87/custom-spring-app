@@ -2,7 +2,6 @@ package com.example.bank.web;
 
 import com.example.bank.domain.BankAccount;
 import com.example.bank.service.BankAccountService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -42,7 +41,7 @@ class AccountControllerTest {
     }
 
     @Test
-    void submitDeposit() {
+    void submitDeposit() throws Exception {
         // Create the form backing object
         AccountForm form = new AccountForm();
         form.setAccountNumber(VALID_ACCOUNT_NO);
@@ -62,7 +61,7 @@ class AccountControllerTest {
     }
 
     @Test
-    void submitWithdraw() {
+    void submitWithdraw() throws Exception {
         AccountForm form = new AccountForm();
         form.setAccountNumber(VALID_ACCOUNT_NO);
         form.setAction("withdraw");
@@ -79,7 +78,7 @@ class AccountControllerTest {
     }
 
     @Test
-    void submitBalanceCheck() {
+    void submitBalanceCheck() throws Exception {
         AccountForm form = new AccountForm();
         form.setAccountNumber(VALID_ACCOUNT_NO);
         form.setAction("balance");
@@ -95,7 +94,7 @@ class AccountControllerTest {
     }
 
     @Test
-    void submitWithInvalidAccount() {
+    void submitWithInvalidAccount() throws Exception {
         AccountForm form = new AccountForm();
         form.setAccountNumber("INVALID_ID");
         form.setAction("deposit");
