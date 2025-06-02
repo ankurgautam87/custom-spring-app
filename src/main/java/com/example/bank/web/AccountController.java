@@ -16,7 +16,6 @@ import com.example.bank.domain.BankAccount;
 import com.example.bank.service.BankAccountService;
 
 @Controller
-@RequestMapping("/account")
 public class AccountController {
 
     private final BankAccountService bankAccountService;
@@ -34,19 +33,16 @@ public class AccountController {
         this.commandClass = commandClass;
     }
 
-    @GetMapping
+    @GetMapping(formView)
     public ModelAndView accountForm(Model model) throws InstantiationException, IllegalAccessException, java.lang.reflect.InvocationTargetException, NoSuchMethodException {
         model.addAttribute(commandName, commandClass.getDeclaredConstructor().newInstance());
         return new ModelAndView(formView);
     }
 
-    @PostMapping
+    @PostMapping(successView)
     public ModelAndView handleAccountAction(
             @ModelAttribute(commandName) AccountForm form, 
-            BindingResult bindingResult, 
-            Model model,
-            HttpServletRequest request, 
-            HttpServletResponse response) throws Exception {
+            BindingResult bindingResult) throws Exception {
 
         if (bindingResult.hasErrors()) {
             return new ModelAndView(formView);
@@ -54,24 +50,25 @@ public class AccountController {
 
         String accountNumber = form.getAccountNumber();
         String action = form.getAction();
+        ModelAndView modelAndView = new ModelAndView(successView);
 
         try {
             if ("deposit".equals(action)) {
                 bankAccountService.deposit(accountNumber, form.getAmount());
-                model.addAttribute("message", "Deposit successful.");
+                modelAndView.addObject("message", "Deposit successful.");
             } else if ("withdraw".equals(action)) {
                 bankAccountService.withdraw(accountNumber, form.getAmount());
-                model.addAttribute("message", "Withdrawal successful.");
+                modelAndView.addObject("message", "Withdrawal successful.");
             }
             
             BankAccount account = bankAccountService.getAccount(accountNumber);
-            model.addAttribute("account", account);
+            modelAndView.addObject("account", account);
 
         } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return new ModelAndView(formView); 
+            modelAndView.addObject("error", e.getMessage());
+            modelAndView.setViewName(formView);
         }
         
-        return new ModelAndView(successView);
+        return modelAndView;
     }
 }
