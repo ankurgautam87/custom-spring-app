@@ -1,50 +1,64 @@
 package com.example.bank.web;
 
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
+
 import com.example.bank.domain.BankAccount;
 import com.example.bank.service.BankAccountService;
 
-// This controller handles all logic for the account page.
-public class AccountController extends SimpleFormController {
+@Controller
+@RequestMapping("/account")
+public class AccountController {
 
-    private BankAccountService bankAccountService;
+    private final BankAccountService bankAccountService;
 
-    // Setter for Spring to inject the service bean
-    public void setBankAccountService(BankAccountService bankAccountService) {
+    public AccountController(BankAccountService bankAccountService) {
         this.bankAccountService = bankAccountService;
     }
 
-    // This method is called when the form is submitted (POST request).
-    protected ModelAndView onSubmit(Object command) throws Exception {
-        AccountForm form = (AccountForm) command;
-        ModelAndView mv = new ModelAndView(getSuccessView());
-        
+    @GetMapping
+    public ModelAndView accountForm(Model model) {
+        model.addAttribute("accountForm", new AccountForm());
+        return new ModelAndView("accountForm"); // Assumes "accountForm" is the view name
+    }
+
+    @PostMapping
+    public ModelAndView handleAccountAction(@ModelAttribute("accountForm") AccountForm form, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("accountForm"); // Return to form with errors
+        }
+
+        String accountNumber = form.getAccountNumber();
+        String action = form.getAction();
+        ModelAndView mv = new ModelAndView("account"); // Assumes "account" is the result view
         try {
-            String accountNumber = form.getAccountNumber();
-            String action = form.getAction();
-            
             if ("deposit".equals(action)) {
                 bankAccountService.deposit(accountNumber, form.getAmount());
-                mv.addObject("message", "Deposit successful.");
+                model.addAttribute("message", "Deposit successful.");
             } else if ("withdraw".equals(action)) {
                 bankAccountService.withdraw(accountNumber, form.getAmount());
-                mv.addObject("message", "Withdrawal successful.");
+                model.addAttribute("message", "Withdrawal successful.");
             }
             
-            // For all actions, we fetch and display the latest account state.
             BankAccount account = bankAccountService.getAccount(accountNumber);
-            mv.addObject("account", account);
+            model.addAttribute("account", account);
 
         } catch (Exception e) {
-            // If anything goes wrong, we return to the form view with an error message.
-            // A more robust app would differentiate between user errors and system errors.
-            return new ModelAndView(getFormView())
-                .addObject("error", e.getMessage())
-                .addObject(getCommandName(), command); // Re-bind the form data
+            // Handle exceptions appropriately (e.g., logging, specific error messages)
+            model.addAttribute("error", e.getMessage());
+            return new ModelAndView("accountForm");
         }
         
         return mv;
     }
+
+
 }
