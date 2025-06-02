@@ -1,7 +1,7 @@
 package com.example.bank.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +35,7 @@ public class AccountController {
     }
 
     @GetMapping
-    public ModelAndView accountForm(Model model) {
+    public ModelAndView accountForm(Model model) throws InstantiationException, IllegalAccessException, java.lang.reflect.InvocationTargetException, NoSuchMethodException {
         model.addAttribute(commandName, commandClass.getDeclaredConstructor().newInstance());
         return new ModelAndView(formView);
     }
