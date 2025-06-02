@@ -1,21 +1,23 @@
 package com.example.bank.service;
 
 import com.example.bank.domain.BankAccount;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class BankAccountServiceImplTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.*;
+
+public class BankAccountServiceImplTest {
 
     private BankAccountService bankAccountService;
     private static final String VALID_ACCOUNT_NO = "12345";
     private static final String INVALID_ACCOUNT_NO = "99999";
     private static final double INITIAL_BALANCE = 1000.0;
 
-    // This method is called before each test method execution.
-    protected void setUp() throws Exception {
-        super.setUp();
-
+    @BeforeEach
+    void setUp() {
         // Create a new account object for our tests
         BankAccount account = new BankAccount();
         account.setAccountNumber(VALID_ACCOUNT_NO);
@@ -23,62 +25,56 @@ public class BankAccountServiceImplTest extends TestCase {
         account.setBalance(INITIAL_BALANCE);
 
         // Create a map to hold the initial account data
-        Map initialAccounts = new HashMap();
+        Map<String, BankAccount> initialAccounts = new HashMap<>();
         initialAccounts.put(VALID_ACCOUNT_NO, account);
-        
+
         // Initialize the service with the test data
         bankAccountService = new BankAccountServiceImpl(initialAccounts);
     }
-    
-    public void testGetAccountSuccess() {
+
+    @Test
+    void testGetAccountSuccess() {
         BankAccount account = bankAccountService.getAccount(VALID_ACCOUNT_NO);
-        assertNotNull("Account should not be null", account);
-        assertEquals("Account number should match", VALID_ACCOUNT_NO, account.getAccountNumber());
+        assertNotNull(account, "Account should not be null");
+        assertEquals(VALID_ACCOUNT_NO, account.getAccountNumber(), "Account number should match");
     }
 
-    public void testGetAccountFailure() {
-        try {
-            bankAccountService.getAccount(INVALID_ACCOUNT_NO);
-            fail("Should have thrown IllegalArgumentException for an invalid account number.");
-        } catch (IllegalArgumentException e) {
-            // Expected exception, so test passes.
-            assertEquals("Exception message is incorrect", "Account not found", e.getMessage());
-        }
+    @Test
+    void testGetAccountFailure() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                bankAccountService.getAccount(INVALID_ACCOUNT_NO));
+        assertEquals("Account not found", exception.getMessage(), "Exception message is incorrect");
     }
-    
-    public void testSuccessfulDeposit() {
+
+    @Test
+    void testSuccessfulDeposit() {
         double depositAmount = 500.0;
         bankAccountService.deposit(VALID_ACCOUNT_NO, depositAmount);
-        
+
         BankAccount account = bankAccountService.getAccount(VALID_ACCOUNT_NO);
-        assertEquals("Balance should be updated after deposit", INITIAL_BALANCE + depositAmount, account.getBalance(), 0.0);
-    }
-    
-    public void testDepositWithNegativeAmount() {
-        try {
-            bankAccountService.deposit(VALID_ACCOUNT_NO, -100.0);
-            fail("Should have thrown IllegalArgumentException for negative deposit.");
-        } catch (IllegalArgumentException e) {
-            // Expected
-            assertEquals("Deposit amount must be positive", e.getMessage());
-        }
+        assertEquals(INITIAL_BALANCE + depositAmount, account.getBalance(), 0.0, "Balance should be updated after deposit");
     }
 
-    public void testSuccessfulWithdraw() {
+    @Test
+    void testDepositWithNegativeAmount() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                bankAccountService.deposit(VALID_ACCOUNT_NO, -100.0));
+        assertEquals("Deposit amount must be positive", exception.getMessage());
+    }
+
+    @Test
+    void testSuccessfulWithdraw() {
         double withdrawAmount = 250.0;
         bankAccountService.withdraw(VALID_ACCOUNT_NO, withdrawAmount);
-        
+
         BankAccount account = bankAccountService.getAccount(VALID_ACCOUNT_NO);
-        assertEquals("Balance should be updated after withdrawal", INITIAL_BALANCE - withdrawAmount, account.getBalance(), 0.0);
+        assertEquals(INITIAL_BALANCE - withdrawAmount, account.getBalance(), 0.0, "Balance should be updated after withdrawal");
     }
 
-    public void testWithdrawWithInsufficientFunds() {
-        try {
-            bankAccountService.withdraw(VALID_ACCOUNT_NO, INITIAL_BALANCE + 1.0);
-            fail("Should have thrown IllegalStateException for insufficient funds.");
-        } catch (IllegalStateException e) {
-            // Expected
-            assertEquals("Insufficient funds", e.getMessage());
-        }
+    @Test
+    void testWithdrawWithInsufficientFunds() {
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () ->
+                bankAccountService.withdraw(VALID_ACCOUNT_NO, INITIAL_BALANCE + 1.0));
+        assertEquals("Insufficient funds", exception.getMessage());
     }
 }
