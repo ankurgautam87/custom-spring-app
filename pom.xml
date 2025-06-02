@@ -14,6 +14,7 @@
         <junit.jupiter.version>5.11.0-M1</junit.jupiter.version>
         <mockito.version>5.2.0</mockito.version>
         <hamcrest.version>2.2</hamcrest.version>
+        <xstream.version>1.4.20</xstream.version>
     </properties>
 
     <dependencies>
@@ -51,6 +52,13 @@
             <groupId>org.glassfish.web</groupId>
             <artifactId>jakarta.servlet.jsp.jstl</artifactId>
             <version>3.0.1</version>
+        </dependency>
+
+        <!-- XStream -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>${xstream.version}</version>
         </dependency>
 
         <!-- ========================================================= -->
