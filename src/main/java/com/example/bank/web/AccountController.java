@@ -19,38 +19,34 @@ import com.example.bank.service.BankAccountService;
 public class AccountController {
 
     private final BankAccountService bankAccountService;
-    private final String successView;
-    private final String formView;
     private final String commandName;
     private final Class<AccountForm> commandClass;
 
 
-    public AccountController(BankAccountService bankAccountService, String successView, String formView, String commandName, Class<AccountForm> commandClass) {
+    public AccountController(BankAccountService bankAccountService, String commandName, Class<AccountForm> commandClass) {
         this.bankAccountService = bankAccountService;
-        this.successView = successView;
-        this.formView = formView;
         this.commandName = commandName;
         this.commandClass = commandClass;
     }
 
-    @GetMapping(formView)
+    @GetMapping("/accountForm")
     public ModelAndView accountForm(Model model) throws InstantiationException, IllegalAccessException, java.lang.reflect.InvocationTargetException, NoSuchMethodException {
         model.addAttribute(commandName, commandClass.getDeclaredConstructor().newInstance());
-        return new ModelAndView(formView);
+        return new ModelAndView("accountForm");
     }
 
-    @PostMapping(successView)
+    @PostMapping("/account")
     public ModelAndView handleAccountAction(
             @ModelAttribute(commandName) AccountForm form, 
             BindingResult bindingResult) throws Exception {
 
         if (bindingResult.hasErrors()) {
-            return new ModelAndView(formView);
+            return new ModelAndView("accountForm");
         }
 
         String accountNumber = form.getAccountNumber();
         String action = form.getAction();
-        ModelAndView modelAndView = new ModelAndView(successView);
+        ModelAndView modelAndView = new ModelAndView("account");
 
         try {
             if ("deposit".equals(action)) {
@@ -66,7 +62,7 @@ public class AccountController {
 
         } catch (Exception e) {
             modelAndView.addObject("error", e.getMessage());
-            modelAndView.setViewName(formView);
+            modelAndView.setViewName("accountForm");
         }
         
         return modelAndView;
